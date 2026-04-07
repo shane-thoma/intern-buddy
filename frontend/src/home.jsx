@@ -1,40 +1,58 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import './Home.css'
+import {Link} from "react-router-dom";
 
-function home(){
+function Home(){
 
+    const skills = ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
     return(
         <>
-            <h1>internBuddy</h1>
-            <button>Filter</button>
-            <section class="internship-section">
-                <h2>Internships</h2>
-                <div class="internship-box">
-                    <div class="internship-option">
-                        <p class="job-title">IT Internship</p>
-                        <p class="job-company">Microsoft</p>
+            <header>
+                <div className="logo">internBuddy</div>
+            </header>
+            <button className= "filter-button">Filter</button>
+            <section className="internship-section">
+                <div className="internship-section-header">Internships</div>
+                <div className="internship-box">
+                    <div className="internship-option">
+                        <p className="job-title">IT Internship</p>
+                        <p className="job-company">Microsoft</p>
                     </div>
-                    <div class="internship-option">
-                        <p class="job-title">Machine Learning Intern</p>
-                        <p class="job-company">ChatGBT</p>
+                    <div className="internship-option">
+                        <p className="job-title">Machine Learning Intern</p>
+                        <p className="job-company">ChatGBT</p>
                     </div>
-                     <div class="internship-option">
-                        <p class="job-title">Backend Developer</p>
-                        <p class="job-company">Google</p>
+                     <div className="internship-option">
+                        <p className="job-title">Backend Developer</p>
+                        <p className="job-company">Google</p>
                     </div>
                 </div>
 
             </section>
-            <section class="internship-position-info-sextion">
-                <div class="internship-position-info-box">
-                    
+            <section className="internship-position-info-section">
+                <div className="internship-position-info-box">
+                    <div className="position-info">IT Internship</div>
+                    <div className="position-info">Company: Microsoft</div>
+                    <div className="position-info">Location: Redmond, Washington</div>
+                    <div className="position-info">Salary: 4500</div>
+                    <div className="position-info"> Skills: <ul className= "position-skills-list">
+                            {skills.map((skill, index) =>(
+                                <li key={index}>{skill}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
 
 
             </section>
+
+             <div className="bottom-nav">
+                    <Link to="/Home">Logout</Link>
+                    <Link to="/Home">Home</Link>
+                    <Link to="/Home">Profile</Link>
+            </div>
         </>
     )
 }
 
-export default App
+export default Home
+
