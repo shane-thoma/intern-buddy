@@ -1,15 +1,30 @@
 import './Home.css'
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom"
+import React, {useState} from 'react'
+import StudentFilters from './StudentFilters'
+
 
 function Home(){
+    const [showFilter, setShowFilter] = useState(false);
 
-    const skills = ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
+    const skills = ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork'];
+
+
     return(
         <>
             <header>
                 <div className="logo">internBuddy</div>
             </header>
-            <button className= "filter-button">Filter</button>
+            <button className= "filter-button" onClick={() =>setShowFilter(!showFilter)}>Filter</button>
+            {showFilter && (
+                <div className="popup-student-filters">
+                    <div className="popup-content">
+                        <StudentFilters />
+                        <button className = "popup-content-close" onClick = {()=> setShowFilter(false)}>Close</button>
+                    </div>
+
+                </div>
+            )}
             <section className="internship-section">
                 <div className="internship-section-header">Internships</div>
                 <div className="internship-box">
@@ -46,9 +61,9 @@ function Home(){
             </section>
 
              <div className="bottom-nav">
-                    <Link to="/Home">Logout</Link>
-                    <Link to="/Home">Home</Link>
-                    <Link to="/Home">Profile</Link>
+                    <Link to="/">Logout</Link>
+                    <Link to="/">Home</Link>
+                    <Link to="/Profile">Profile</Link>
             </div>
         </>
     )

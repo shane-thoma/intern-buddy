@@ -5,9 +5,11 @@ import './Home.css'
 import App from './App.jsx'
 import Home from './home.jsx'
 import { BrowserRouter } from 'react-router-dom'
+import Profile from './Profile.jsx'
+
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <Home/>
+    <App/>
   </BrowserRouter>
 )
