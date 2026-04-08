@@ -1,7 +1,5 @@
 import './StudentFilters.css'
 
-
-
 function StudentFilters(){
     return(
         <div className = "student-filters-container">

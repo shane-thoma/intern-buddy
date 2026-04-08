@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import UpdateInfo from './UpdateInfo'
 import './Home.css';
+import './Profile.css';
 import {Link} from "react-router-dom";
 
 function Profile(){
