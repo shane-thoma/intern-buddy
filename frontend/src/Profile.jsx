@@ -36,8 +36,8 @@ function Profile(){
 
             </div>
             <div className="bottom-nav">
-                    <Link to="/">Logout</Link>
-                    <Link to="/">Home</Link>
+                    <Link to="/Login">Logout</Link>
+                    <Link to="/Home">Home</Link>
                     <Link to="/Profile">Profile</Link>
             </div>
         </>
