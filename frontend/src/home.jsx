@@ -34,7 +34,7 @@ function Home(){
                     </div>
                     <div className="internship-option">
                         <p className="job-title">Machine Learning Intern</p>
-                        <p className="job-company">ChatGBT</p>
+                        <p className="job-company">ChatGPT</p>
                     </div>
                      <div className="internship-option">
                         <p className="job-title">Backend Developer</p>
