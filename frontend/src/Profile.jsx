@@ -27,8 +27,6 @@ function Profile(){
                     )}
                     </div>
                 </div>
-
-
             </div>
 
             <div className="saved-internship-container">
