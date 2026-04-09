@@ -19,6 +19,7 @@ function LandingPg(){
             <br></br>
             <p>Don't have an account?</p>
             <button className = "signupBtn" onClick = {handleSignUp}> SignUp</button>
+            <p className = "trademark">sillygeese™ </p>
         </div>
     )
 
