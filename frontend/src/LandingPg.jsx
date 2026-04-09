@@ -17,6 +17,7 @@ function LandingPg(){
             <h1 className="landingpg-logo">internBuddies</h1>
             <button className = "loginBtn" onClick = {handleLogin}> Login</button> 
             <br></br>
+            <p>Don't have an account?</p>
             <button className = "signupBtn" onClick = {handleSignUp}> SignUp</button>
         </div>
     )

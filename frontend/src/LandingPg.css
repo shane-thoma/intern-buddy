@@ -1,5 +1,5 @@
 body{
-     background-image:linear-gradient(to right,rgb(240, 255, 255),rgb(255, 255, 255));
+     background-image:linear-gradient(to right,rgb(178, 234, 234),rgb(225, 245, 244));
 }
 
 .landingpg-container{
@@ -13,7 +13,6 @@ body{
 }
 
 .loginBtn, .signupBtn{
-     margin: 12px 0;
      padding: 15px 30px;
      width: 220px;
      font-size: 18px;
@@ -21,9 +20,14 @@ body{
      border:none;
      cursor:pointer;
      transition: all 0.2 ease;
+     background-color: rgb(108, 174, 231);
 }
 
 .loginBtn:hover, .signupBtn:hover{
      transform:scale(1.05);
      opacity:0.9;
+}
+
+.landingpg-logo{
+     color:rgb(58, 136, 220)
 }
