@@ -61,9 +61,9 @@ function Home(){
             </section>
 
              <div className="bottom-nav">
-                    <Link to="/Login">Logout</Link>
-                    <Link to="/Home">Home</Link>
-                    <Link to="/Profile">Profile</Link>
+                    <Link to="/Login" className="bottom-nav-items">Logout</Link>
+                    <Link to="/Home" className="bottom-nav-items">Home</Link>
+                    <Link to="/Profile" className="bottom-nav-items">Profile</Link>
             </div>
         </>
     )
