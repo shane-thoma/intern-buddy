@@ -17,16 +17,14 @@ function Profile(){
                 <div className = "major">Major: Computer Science</div>
                 <div className="GPA">GPA: 3.8</div>
                 
-                <div className="update-info-button" onClick={() => setUpdateInfo(!updateInfo)}>
-                    <div className="popup-update-info">
-                    {updateInfo &&(
-                        <div className="popup-content">
+                <button className="update-info-button" onClick={() => setUpdateInfo(!updateInfo)}>Update Info</button>
+                {updateInfo && (
+                    <div className="popup-content">
                             <UpdateInfo />
                             <button className = "popup-content-close" onClick = {()=> setUpdateInfo(false)}>Close</button>
-                        </div>
-                    )}
                     </div>
-                </div>
+
+                )}
             </div>
 
             <div className="saved-internship-container">
