@@ -1,0 +1,29 @@
+body{
+     background-image:linear-gradient(to right,rgb(240, 255, 255),rgb(255, 255, 255));
+}
+
+.landingpg-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    height: 100vh;
+    text-align:center;
+    gap: 12px;
+}
+
+.loginBtn, .signupBtn{
+     margin: 12px 0;
+     padding: 15px 30px;
+     width: 220px;
+     font-size: 18px;
+     border-radius: 18px;
+     border:none;
+     cursor:pointer;
+     transition: all 0.2 ease;
+}
+
+.loginBtn:hover, .signupBtn:hover{
+     transform:scale(1.05);
+     opacity:0.9;
+}
