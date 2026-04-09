@@ -15,9 +15,9 @@ function LandingPg(){
     return(
         <div className= "landingpg-container">
             <h1 className="landingpg-logo">internBuddies</h1>
-            <button className = "loginBtn" onClick = {handleLogin}> Login</button>
+            <button className = "loginBtn" onClick = {handleLogin}> Login</button> 
+            <br></br>
             <button className = "signupBtn" onClick = {handleSignUp}> SignUp</button>
-
         </div>
     )
 
