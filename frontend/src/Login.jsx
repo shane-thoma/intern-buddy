@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import "./Login.css";
 
 function Login(){
 
@@ -22,6 +23,7 @@ function Login(){
                         onChange ={(e) => setUsername(e.target.value)}
                     ></input>
                 </label>
+                <br></br>
                 <label className="login-form-label">Password:
                     <input 
                     type="text"
