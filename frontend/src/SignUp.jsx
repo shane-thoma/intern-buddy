@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import "./SignUp.css";
 
 function SignUp()
 {
@@ -23,6 +24,7 @@ function SignUp()
                         value = {username}
                         onChange = {(e) => setUsername(e.target.value)}
                     ></input>
+                    <br></br>
                 </label>
                 <label className="signup-form-label">Email Address:
                     <input
@@ -30,6 +32,7 @@ function SignUp()
                         value = {email}
                         onChange = {(e) => setEmail(e.target.value)}
                     ></input>
+                    <br></br>
                 </label>
                 <label className="signup-form-label">Password:
                     <input
@@ -37,7 +40,9 @@ function SignUp()
                         value = {password}
                         onChange = {(e) => setPassword(e.target.value)}
                     ></input>
+                    <br></br>
                 </label>
+                <br></br>
                 <button className="signUpBtn" onClick={handleSignUp}>Sign Up</button>
 
             </form>
