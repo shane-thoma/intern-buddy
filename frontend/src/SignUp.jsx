@@ -44,7 +44,6 @@ function SignUp()
                 </label>
                 <br></br>
                 <button className="signUpBtn" onClick={handleSignUp}>Sign Up</button>
-
             </form>
         </div>
 

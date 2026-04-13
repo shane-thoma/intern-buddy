@@ -36,6 +36,5 @@ function Login(){
             <button className="login-button" onClick={handleLogin}>Login</button>
         </div>
     )
-
 }
 export default Login;
