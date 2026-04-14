@@ -6,6 +6,7 @@ body {
 .user-greeting{
     text-align: center;
     margin-top: 20px;
+    color: rgb(124, 197, 228);
 }
 
 .bottom-nav {
