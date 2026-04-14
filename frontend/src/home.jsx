@@ -1,39 +1,70 @@
 import './Home.css'
 import {Link} from "react-router-dom"
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import StudentFilters from './StudentFilters'
 
 
 function Home(){
     const [showFilter, setShowFilter] = useState(false);
 
-    const [selectedInternship, setSelectedInternship] = useState(0)
+    const [selectedInternship, setSelectedInternship] = useState(0);
+    const [internships, setInternships] = useState([]);
+    
+    const [isLoading, setIsLoading]= useState(true);
+    const [error, setError]= useState(null);
 
-
-    const internships = [
-        {
-            title: "IT Internship",
-            company: "Microsoft",
-            location: "Redmond, Washington",
-            salary: 4500,
-            skills: ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
-        },
-        {
-            title: "Machine Learning Intern",
-            company: "ChatGPT",
-            location: "San Francisco, California",
-            salary: 5000,
-            skills: ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
-        },
-        {
-            title: "Backend Developer",
-            company: "Google",
-            location: "Mountain View, California",
-            salary: 5500,
-            skills: ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
+    
+    useEffect(() => {
+        const loadInternships = async () => {
+        try {
+            const result = await getInternships();
+            setInternships(result);
+        } 
+        catch (err) {
+            console.error(err);
+            setError(err.message);
+        } 
+        finally {
+            setIsLoading(false);
         }
-    ];
+        };
 
+        loadInternships();
+    }, []);
+
+    async function getInternships()
+    {
+        const response = await fetch('http://localhost:5002/api/internships', 
+            {
+            method: 'GET'
+            }
+    
+        );
+
+        if(!response.ok)
+        {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+        }
+
+        const result= await response.json();
+
+        console.log(result)
+        return result;
+
+
+    }
+    // // const fetch_json = async () ->{
+    //     setIsLoading(true);
+    //     setError(null);
+
+    //     try{
+    //         const results = await 
+    //     }
+
+    // }
+    
+        
     const currentInternship = internships[selectedInternship]
 
     return(
@@ -70,16 +101,25 @@ function Home(){
             </div>
             <section className="internship-position-info-section">
                 <div className="internship-position-info-box">
-                    <div className="position-info">{currentInternship.title}</div>
-                    <div className="position-info">{currentInternship.company}</div>
-                    <div className="position-info">{currentInternship.location}</div>
-                    <div className="position-info">{currentInternship.salary}</div>
-                    <div className="position-info"> Skills: <ul className= "position-skills-list">
-                            {(currentInternship.skills).map((skill, index) =>(
-                                <li key={index}>{skill}</li>
-                            ))}
-                        </ul>
-                    </div>
+                    {isLoading ? (
+                    <p>Loading...</p>
+                    ) : currentInternship ? (
+                        <>
+                            <div className="position-info">{currentInternship.title}</div>
+                            <div className="position-info">{currentInternship.company}</div>
+                            <div className="position-info">{currentInternship.location}</div>
+                            <div className="position-info">{currentInternship.salary}</div>
+                            <div className="position-info"> Skills: 
+                                <ul className="position-skills-list">
+                                    {(currentInternship.skills || []).map((skill, index) => (
+                                        <li key={index}>{skill}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    ) : (
+                        <p>No internship selected</p>
+                     )}
                 </div>
 
 
