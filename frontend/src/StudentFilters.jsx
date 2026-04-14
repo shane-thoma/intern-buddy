@@ -1,6 +1,29 @@
-import './StudentFilters.css'
+import './StudentFilters.css';
+import {useState} from "react";
 
-function StudentFilters(){
+function StudentFilters({setShowFilter}){
+    
+    const [filters, setFilters] = useState({
+        areaOfWork: "",
+        frameworks: "",
+        languages: "",
+        ide:"",
+        tools:""
+    });
+
+    const handleChange = (e) => {
+        setFilters({
+            ...filters,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmiy = async(e) =>{
+        e.preventDefault();
+
+        const res = await fetch()
+    }
+
     return(
         <div className = "student-filters-container">
             <form className= "student-filters-form">
