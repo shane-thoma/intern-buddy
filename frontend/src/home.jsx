@@ -12,8 +12,8 @@ function Home(){
 
     return(
         <>
-            <header>
-                <div className="logo">internBuddy</div>
+            <header className = "home-header">
+                <img src = "/websitelogo.png" className = "home-logo-img"/>
             </header>
             <button className= "filter-button" onClick={() =>setShowFilter(!showFilter)}>Filter</button>
             {showFilter && (

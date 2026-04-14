@@ -30,10 +30,25 @@ body{
 }
 
 .landingpg-logo{
-     color:rgb(74, 147, 224);
-     font-family: Georgia, 'Times New Roman', Times, serif;
+     margin:0;
+     padding:0;
+     text-align:center;
+     
+}
+
+.landingpg-logo-img{
+     width:300px;
+     height:300px;
+     overflow:hidden;
+     margin: -50px; /* Might have to fix */
 }
 
 .trademark{
      margin-bottom:10px;
+}
+
+.introduction{
+     margin-bottom: 10px;
+     color: rgb(61, 130, 190);
+     font-family: 'Times New Roman', Times, serif;
 }
