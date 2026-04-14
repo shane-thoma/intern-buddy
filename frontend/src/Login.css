@@ -15,8 +15,21 @@
     padding: 2%;
     font-size: 18px;
     background-color: rgb(242, 248, 249);
+    border-radius: 14px;
 }
 
 .login-title{
-    color: rgb(108, 174, 231);;
+    color: rgb(108, 174, 231);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.login-button {
+    padding: 15px 20px;
+    width: 180px;
+    font-size: 16px;
+    border-radius: 16px;
+    border:none;
+    cursor:pointer;
+    transition: all 0.2 ease;
+    background-color: rgb(108, 174, 231);
 }
