@@ -7,3 +7,29 @@
     text-align:center;
     gap: 12px;
 }
+
+.signup-form{
+    border-style: solid;
+    border-width: 0.1cm;
+    border-color: rgb(108, 174, 231);
+    padding: 2%;
+    font-size: 18px;
+    background-color: rgb(242, 248, 249);
+    border-radius: 14px;
+}
+
+.signup-title{
+    color: rgb(108, 174, 231);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.signUpBtn {
+    padding: 15px 20px;
+    width: 180px;
+    font-size: 16px;
+    border-radius: 16px;
+    border:none;
+    cursor:pointer;
+    transition: all 0.2 ease;
+    background-color: rgb(108, 174, 231);
+}
