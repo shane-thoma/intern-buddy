@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import sqlite3
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -14,3 +15,8 @@ def test():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+def get_db():
+    conn = sqlite3.connect("intern-buddy.db")
+    conn.row_factory = sqlite3.Row
+    return conn
