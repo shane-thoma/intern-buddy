@@ -1,0 +1,15 @@
+.student-filters-button, .popup-content-close{
+    background-color:rgb(150, 212, 239);
+    color: white;
+    font-size: 18px;
+
+    
+    cursor: pointer;
+
+    border-radius: 8px;
+    border: none;
+}
+
+.student-filters-button{
+    margin-right:15px;
+}

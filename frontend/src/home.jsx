@@ -20,7 +20,6 @@ function Home(){
                 <div className="popup-student-filters">
                     <div className="popup-content">
                         <StudentFilters />
-                        <button className = "popup-content-close" onClick = {()=> setShowFilter(false)}>Close</button>
                     </div>
 
                 </div>
