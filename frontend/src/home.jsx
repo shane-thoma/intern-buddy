@@ -7,8 +7,34 @@ import StudentFilters from './StudentFilters'
 function Home(){
     const [showFilter, setShowFilter] = useState(false);
 
-    const skills = ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork'];
+    const [selectedInternship, setSelectedInternship] = useState(0)
 
+
+    const internships = [
+        {
+            title: "IT Internship",
+            company: "Microsoft",
+            location: "Redmond, Washington",
+            salary: 4500,
+            skills: ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
+        },
+        {
+            title: "Machine Learning Intern",
+            company: "ChatGPT",
+            location: "San Francisco, California",
+            salary: 5000,
+            skills: ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
+        },
+        {
+            title: "Backend Developer",
+            company: "Google",
+            location: "Mountain View, California",
+            salary: 5500,
+            skills: ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork']
+        }
+    ];
+
+    const currentInternship = internships[selectedInternship]
 
     return(
         <>
@@ -24,32 +50,32 @@ function Home(){
 
                 </div>
             )}
-            <section className="internship-section">
-                <div className="internship-section-header">Internships</div>
-                <div className="internship-box">
-                    <div className="internship-option">
-                        <p className="job-title">IT Internship</p>
-                        <p className="job-company">Microsoft</p>
-                    </div>
-                    <div className="internship-option">
-                        <p className="job-title">Machine Learning Intern</p>
-                        <p className="job-company">ChatGPT</p>
-                    </div>
-                     <div className="internship-option">
-                        <p className="job-title">Backend Developer</p>
-                        <p className="job-company">Google</p>
-                    </div>
-                </div>
 
-            </section>
+            <div className = "home-container">
+                <section className="internship-section">
+                    <div className="internship-section-header">Internships</div>
+                    <div className="internship-box">
+                    {internships.map((internship, index) =>(
+                        <div
+                            key = {index}
+                            onClick = {() => setSelectedInternship(index)}
+                        >
+                            <p className = "job-title">{internship.title}</p>
+                            <p className = "job-company">{internship.company}</p>
+                        </div>
+                    ))}
+                    </div>
+
+                </section>
+            </div>
             <section className="internship-position-info-section">
                 <div className="internship-position-info-box">
-                    <div className="position-info">IT Internship</div>
-                    <div className="position-info">Company: Microsoft</div>
-                    <div className="position-info">Location: Redmond, Washington</div>
-                    <div className="position-info">Salary: 4500</div>
+                    <div className="position-info">{currentInternship.title}</div>
+                    <div className="position-info">{currentInternship.company}</div>
+                    <div className="position-info">{currentInternship.location}</div>
+                    <div className="position-info">{currentInternship.salary}</div>
                     <div className="position-info"> Skills: <ul className= "position-skills-list">
-                            {skills.map((skill, index) =>(
+                            {(currentInternship.skills).map((skill, index) =>(
                                 <li key={index}>{skill}</li>
                             ))}
                         </ul>
