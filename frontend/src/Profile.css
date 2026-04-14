@@ -37,6 +37,8 @@ body {
 .update-info-button{
     margin-top: 15px;
     text-align: center;
+    background-color: rgb(194, 233, 250);
+    color: rgb(125, 123, 123);
 }
 
 .update-info-button button {
