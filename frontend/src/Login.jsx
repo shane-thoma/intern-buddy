@@ -12,17 +12,22 @@ function Login() {
 
     const handleLogin = () => {
         navigate('/Home')
+
+        localStorage.setItem('username', username)
     }
+
+    
 
     return (
         <div className="login-form-container">
-            <form className="login-form">
+            <form className="lsgin-form">
                 <h1 className="login-title"> Login </h1>
                 <label className="login-form-label">Username:
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        
                     ></input>
                 </label>
                 <br></br>

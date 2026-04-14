@@ -38,7 +38,6 @@ function Home(){
             {
             method: 'GET'
             }
-    
         );
 
         if(!response.ok)
@@ -54,16 +53,6 @@ function Home(){
 
 
     }
-    // // const fetch_json = async () ->{
-    //     setIsLoading(true);
-    //     setError(null);
-
-    //     try{
-    //         const results = await 
-    //     }
-
-    // }
-    
         
     const currentInternship = internships[selectedInternship]
 
@@ -87,13 +76,13 @@ function Home(){
                     <div className="internship-section-header">Internships</div>
                     <div className="internship-box">
                     {internships.map((internship, index) =>(
-                        <div
+                        <button
                             key = {index}
                             onClick = {() => setSelectedInternship(index)}
                         >
                             <p className = "job-title">{internship.title}</p>
                             <p className = "job-company">{internship.company}</p>
-                        </div>
+                        </button>
                     ))}
                     </div>
 
@@ -105,10 +94,10 @@ function Home(){
                     <p>Loading...</p>
                     ) : currentInternship ? (
                         <>
-                            <div className="position-info">{currentInternship.title}</div>
-                            <div className="position-info">{currentInternship.company}</div>
-                            <div className="position-info">{currentInternship.location}</div>
-                            <div className="position-info">{currentInternship.salary}</div>
+                            <div className="position-info">Title: {currentInternship.title}</div>
+                            <div className="position-info">Company: {currentInternship.company}</div>
+                            <div className="position-info">Location: {currentInternship.city}{", "}{currentInternship.state}</div>
+                            <div className="position-info">Salary: ${currentInternship.salary}</div>
                             <div className="position-info"> Skills: 
                                 <ul className="position-skills-list">
                                     {(currentInternship.skills || []).map((skill, index) => (
