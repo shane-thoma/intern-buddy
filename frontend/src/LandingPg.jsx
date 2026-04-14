@@ -17,6 +17,7 @@ function LandingPg(){
             <h1 className="landingpg-logo">
                 <img src = "/websitelogo.png" className = "landingpg-logo-img"/>
             </h1>
+            <br></br>
             <p className = "introduction">
                 Welcome to internBuddies™!  We are here for all of your internship seeking needs.
             </p>
