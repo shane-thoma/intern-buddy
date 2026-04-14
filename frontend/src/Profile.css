@@ -42,3 +42,13 @@ body {
     padding: 8px 14px;
     cursor: pointer;
 }
+
+.profile-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    height: 100vh;
+    text-align:center;
+    gap: 12px;
+}
