@@ -7,3 +7,16 @@
     text-align:center;
     gap: 12px;
 }
+
+.login-form{
+    border-style: solid;
+    border-width: 0.1cm;
+    border-color: rgb(108, 174, 231);
+    padding: 2%;
+    font-size: 18px;
+    background-color: rgb(242, 248, 249);
+}
+
+.login-title{
+    color: rgb(108, 174, 231);;
+}

@@ -16,24 +16,25 @@ function Login(){
 
     return(
         <div className="login-form-container">
-            <form className="login-form">
-                <label className="login-form-label">Username:
-                    <input 
+            <h1 className = "login-title"> Login </h1>
+                <form className="login-form">
+                    <label className="login-form-label">Username:
+                        <input 
+                            type="text"
+                            value = {username}
+                            onChange ={(e) => setUsername(e.target.value)}
+                        ></input>
+                    </label>
+                    <br></br>
+                    <label className="login-form-label">Password:
+                        <input 
                         type="text"
-                        value = {username}
-                        onChange ={(e) => setUsername(e.target.value)}
-                    ></input>
-                </label>
-                <br></br>
-                <label className="login-form-label">Password:
-                    <input 
-                    type="text"
-                    value = {password}
-                    onChange = {(e) => setPassword(e.target.value)}
-                    ></input>
-                </label>
-                <br></br>
-            </form>
+                        value = {password}
+                        onChange = {(e) => setPassword(e.target.value)}
+                        ></input>
+                    </label>
+                    <br></br>
+                </form>
             <button className="login-button" onClick={handleLogin}>Login</button>
         </div>
     )
