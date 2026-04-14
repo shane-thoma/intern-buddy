@@ -35,13 +35,16 @@ header{
 }
 
 .bottom-nav{
+    position: fixed;
     border-radius: 15px;
     background: rgb(194, 233, 250);
     overflow: hidden;
-    position: fixed;
-    bottom:0.5cm;
+    left:0;
+    
+    bottom:10px;
     width: 100%;
-
+    display:flex;
+    box-sizing: border-box;
 }
 
 .bottom-nav-items{
