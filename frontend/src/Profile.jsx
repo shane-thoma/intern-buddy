@@ -1,22 +1,71 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import UpdateInfo from './UpdateInfo'
 import './Home.css';
 import './Profile.css';
 import { Link } from "react-router-dom";
 
+
 function Profile() {
 
     const [updateInfo, setUpdateInfo] = useState(false);
 
+
+    const username = localStorage.getItem('username')
+    
+    const [isLoading, setIsLoading]= useState(true);
+    const [error, setError]= useState(null);
+    const [userInfo, setUserInfo] = useState([])
+
+    useEffect(() => {
+            const loadProfile = async () => {
+            try {
+                const result = await getUserInfo(username);
+                setUserInfo(result);
+            } 
+            catch (err) {
+                console.error(err);
+                setError(err.message);
+            } 
+            finally {
+                setIsLoading(false);
+            }
+            };
+    
+            loadProfile();
+        }, []);
+    
+    
+    async function getUserInfo(username)
+    {
+        const response = await fetch(`http://localhost:5002/api/profile?username=${username}`,
+            {
+                method: 'GET'
+            }
+        )
+
+        if(!response.ok)
+        {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+        }
+
+        const result= await response.json();
+
+        console.log(result)
+        return result;
+
+    }
+
+
     return (
         <>
         <div className='profile-container'>
-            <h1 className="user-greeting">Hi User!</h1>
+            <h1 className="user-greeting">Hi {userInfo.username}</h1>
             <div className="user-info-box">
-                <div className="username">User</div>
-                <div className="university">West Virginia University</div>
-                <div className="major">Major: Computer Science</div>
-                <div className="GPA">GPA: 3.8</div>
+                <div className="username">{userInfo.first_name}{'  '}{userInfo.last_name}</div>
+                <div className="university">{userInfo.university}</div>
+                <div className="major">Major: {userInfo.major}</div>
+                
 
                 <button className="update-info-button" onClick={() => setUpdateInfo(!updateInfo)}>Update Info</button>
                 {updateInfo && (

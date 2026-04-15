@@ -1,14 +1,60 @@
 import './Home.css'
 import {Link} from "react-router-dom"
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import StudentFilters from './StudentFilters'
 
 
 function Home(){
     const [showFilter, setShowFilter] = useState(false);
 
-    const skills = ['React', 'Python', 'Eclipse', 'Docker', 'Teamwork'];
+    const [selectedInternship, setSelectedInternship] = useState(0);
+    const [internships, setInternships] = useState([]);
+    
+    const [isLoading, setIsLoading]= useState(true);
+    const [error, setError]= useState(null);
 
+    
+    useEffect(() => {
+        const loadInternships = async () => {
+        try {
+            const result = await getInternships();
+            setInternships(result);
+        } 
+        catch (err) {
+            console.error(err);
+            setError(err.message);
+        } 
+        finally {
+            setIsLoading(false);
+        }
+        };
+
+        loadInternships();
+    }, []);
+
+    async function getInternships()
+    {
+        const response = await fetch('http://localhost:5002/api/internships', 
+            {
+            method: 'GET'
+            }
+        );
+
+        if(!response.ok)
+        {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+        }
+
+        const result= await response.json();
+
+        console.log(result)
+        return result;
+
+
+    }
+        
+    const currentInternship = internships[selectedInternship]
 
     return(
         <>
@@ -24,36 +70,45 @@ function Home(){
 
                 </div>
             )}
-            <section className="internship-section">
-                <div className="internship-section-header">Internships</div>
-                <div className="internship-box">
-                    <div className="internship-option">
-                        <p className="job-title">IT Internship</p>
-                        <p className="job-company">Microsoft</p>
-                    </div>
-                    <div className="internship-option">
-                        <p className="job-title">Machine Learning Intern</p>
-                        <p className="job-company">ChatGPT</p>
-                    </div>
-                     <div className="internship-option">
-                        <p className="job-title">Backend Developer</p>
-                        <p className="job-company">Google</p>
-                    </div>
-                </div>
 
-            </section>
+            <div className = "home-container">
+                <section className="internship-section">
+                    <div className="internship-section-header">Internships</div>
+                    <div className="internship-box">
+                    {internships.map((internship, index) =>(
+                        <button
+                            key = {index}
+                            onClick = {() => setSelectedInternship(index)}
+                        >
+                            <p className = "job-title">{internship.title}</p>
+                            <p className = "job-company">{internship.company}</p>
+                        </button>
+                    ))}
+                    </div>
+
+                </section>
+            </div>
             <section className="internship-position-info-section">
                 <div className="internship-position-info-box">
-                    <div className="position-info">IT Internship</div>
-                    <div className="position-info">Company: Microsoft</div>
-                    <div className="position-info">Location: Redmond, Washington</div>
-                    <div className="position-info">Salary: 4500</div>
-                    <div className="position-info"> Skills: <ul className= "position-skills-list">
-                            {skills.map((skill, index) =>(
-                                <li key={index}>{skill}</li>
-                            ))}
-                        </ul>
-                    </div>
+                    {isLoading ? (
+                    <p>Loading...</p>
+                    ) : currentInternship ? (
+                        <>
+                            <div className="position-info">Title: {currentInternship.title}</div>
+                            <div className="position-info">Company: {currentInternship.company}</div>
+                            <div className="position-info">Location: {currentInternship.city}{", "}{currentInternship.state}</div>
+                            <div className="position-info">Salary: ${currentInternship.salary}</div>
+                            <div className="position-info"> Skills: 
+                                <ul className="position-skills-list">
+                                    {(currentInternship.skills || []).map((skill, index) => (
+                                        <li key={index}>{skill}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    ) : (
+                        <p>No internship selected</p>
+                     )}
                 </div>
 
 
