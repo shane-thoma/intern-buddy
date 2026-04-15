@@ -71,6 +71,7 @@ function Profile() {
                 {updateInfo && (
                     <div className="popup-content">
                         <UpdateInfo />
+                        <br></br>
                         <button className="popup-content-close" onClick={() => setUpdateInfo(false)}>Close</button>
                     </div>
                 )}

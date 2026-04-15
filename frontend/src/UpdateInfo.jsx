@@ -23,14 +23,13 @@ function UpdateInfo(){
                     <input type="text"></input>
                 </label>
                 <br></br>
-                <label className = "update-info-label">Years of Experience:
+                <label className = "update-info-label">YOE:
                     <input type="text"></input>
                 </label>
+                <br></br>
                 <button className="update-info-button">Confirm Update</button>
-
-
+                <br></br>
             </form>
-
         </div>
     )
 }
