@@ -13,7 +13,7 @@ def get_db():
 
 """ 
 Bhavana - IMPORTANT: 
-This does not YET actually filters the database based on input.
+This does not YET actually filter the database based on user input.
 This just receives the student input from React and saves it into a var (into "filters")
 This just returns all students!
 """
