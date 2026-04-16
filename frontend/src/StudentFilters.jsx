@@ -4,12 +4,54 @@ import {useState} from "react";
 function StudentFilters({setShowFilter}){
     
     const [filters, setFilters] = useState({
-        areaOfWork: "",
-        frameworks: "",
-        languages: "",
-        ide:"",
-        tools:""
+        skills : []
     });
+
+    const [selectedSkill, setSelectedSkill] = useState("")
+
+    const skillOptions = [
+        "python",
+        "javascript",
+        "C",
+        "Eclipse",
+        "VSCode",
+        "HTML",
+        "CSS",
+        "flask",
+        "react",
+        "ChatGPT",
+        "Docker",
+        "Google Gemini",
+        "Github Co-Pilot",
+        "Microsoft Office Suite",
+        "Pandas",
+        "Node.js",
+        "SQL",
+        "MySQL",
+        "GitHub",
+        "teamwork",
+        "communication",
+        "problem solving",
+        "Microsoft Azure",
+        "AWS Cloud",
+        "java"
+    ];
+
+    const handleAddSkill = () => {
+        if (selectedSkill && !filters.skills.includes(selectedSkill)){
+            setFilters((prev) => ({
+                ...prev,
+                skills: [...prev.skills, selectedSkill]
+            }));
+        }
+    };
+
+    const handleRemoveSkill = (skillToRemove) => {
+        setFilters((prev) => ({
+            ...prev,
+            skills: prev.skills.filter(skill => skill!== skillToRemove)
+        }));
+    };
 
     const handleChange = (e) => {
         setFilters({
@@ -35,51 +77,55 @@ function StudentFilters({setShowFilter}){
 
     return(
         <div className = "student-filters-container">
-            <form className= "student-filters-form">
-                <label>Area of Work:
-                    <input 
-                        name = "areaOfWork"
-                        value = {filters.areaOfWork}
-                        onChange = {handleChange} // Saving
-                    />
-                </label>
+            <form className= "student-filters-form" onSubmit = {handleSubmit}>
+                <label>Skills:</label>
+
+                <select
+                    value = {selectedSkill}
+                    onChange={(e) => setSelectedSkill(e.target.value)}
+                >
+                    <option value = ""> Select a skill </option>
+                    {skillOptions.map((skills) => (
+                        <option key = {skills} value = {skills}>
+                            {skills}
+                        </option>
+                    ))}
+                </select>
+
+                <button type = "button" onClick = {handleAddSkill}>
+                    Add
+                </button>
+
                 <br></br>
-                <label>Frameworks:
-                    <input 
-                        name = "frameworks"
-                        value={filters.frameworks}
-                        onChange={handleChange} // Saving 
-                    />
-                </label>
-                <br></br>
-                
-                <label>Programming Language:
-                    <input  
-                        name = "lanuguages"
-                        value={filters.languages}
-                        onChange={handleChange} // Saving 
-                    />
-                </label>
-                <br></br>
-                <label>IDE:
-                    <input  
-                        name = "ide"
-                        value={filters.ide}
-                        onChange={handleChange} // Saving 
-                    />
-                </label>
-                <br></br>
-                <label>Non Technical Tools:
-                    <input  
-                        name = "tools"
-                        value={filters.tools}
-                        onChange={handleChange} // Saving 
-                    />
-                </label>
-                <br></br>
-                <button className="student-filters-button">Apply Filters</button>
-        
-                <button className = "popup-content-close" onClick = {()=> setShowFilter(false)}>Close</button>
+
+                <div>
+                    {filters.skills.map((skill) => (
+                        <span key = {skill} style = {{ marginRight: "10px"}}>
+                            {skill}
+                            <button
+                                type = "button"
+                                onClick = {() => handleRemoveSkill(skill)}
+                            >
+                                x
+                            </button>
+                        </span>
+                    ))}
+                </div>
+
+                <br/>
+
+                <button type = "submit" className = "student-filters-button">
+                    Apply Filters
+                </button>
+
+                <button
+                    type = "button"
+                    className = "popup-content-close"
+                    onClick={() => setShowFilter (false)}
+                >
+                    Close
+                </button>
+
                 <br></br>
             </form>
         </div>
