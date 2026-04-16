@@ -56,6 +56,66 @@ def filter_students():
 
     return jsonify(json_rows)
 
+
+@app.route("/api/insert/skills",  methods=["POST"])
+def insert_skills():
+    username = request.args.get('username')
+    skill = request.args.get('skill')
+    
+    if not username or not skill:
+        return jsonify({"error": "Missing username or skill"}), 400
+    
+    try:
+        with sqlite3.connect('intern-buddy.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO StudentSkill VALUES (?, ?)", (username, skill))
+            conn.commit()
+        return jsonify({"status": "Successfully added"}), 201
+    except sqlite3.IntegrityError:
+        return jsonify({"error": "Skill already added or invalid record"}), 409
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/delete/skills",  methods=["POST"])
+def delete_skills():
+    username = request.args.get('username')
+    skill = request.args.get('skill')
+    
+    if not username or not skill:
+        return jsonify({"error": "Missing username or skill"}), 400
+    
+    try:
+        with sqlite3.connect('intern-buddy.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM StudentSkill WHERE username = ? AND skill = ?", (username, skill))
+            if cursor.rowcount == 0:
+                return jsonify({"error": "Skill not found"}), 404
+            conn.commit()
+        return jsonify({"status": "Successfully deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/dropdown", methods=["GET"])
+def dropdown_skills():
+    username = request.args.get('username')
+    with sqlite3.connect('intern-buddy.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("""
+        SELECT * FROM Skill
+        LEFT JOIN StudentSkill
+        ON Skill.skill == StudentSkill.skill AND StudentSkill.username = ?""", (username,))
+    
+    rows = cursor.fetchall()
+    drop_down_array= []
+    for row in rows:
+        drop_down_array.append(row)
+    
+    json_array = {"skills":drop_down_array}
+    print(json_array)
+    return jsonify(json_array)
+    
 @app.route("/")
 def home():
     return jsonify({"message": "Hello from intern-buddy!"})
