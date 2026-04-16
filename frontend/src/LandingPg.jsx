@@ -14,9 +14,9 @@ function LandingPg(){
 
     return(
         <div className= "landingpg-container">
-            <h1 className="landingpg-logo">
+            <div className="landingpg-logo">
                 <img src = "/websitelogo.png" className = "landingpg-logo-img"/>
-            </h1>
+            </div>
             <br></br>
             <p className = "introduction">
                 Welcome to internBuddies™!  We are here for all of your internship seeking needs.

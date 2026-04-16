@@ -58,11 +58,11 @@ header{
 }
 
 .home-header{
-    position:fixed;
-    top:0;
-    left:0;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
     padding:10px 20px;
-}
+} 
 
 .home-logo-img{
     width: 120px;

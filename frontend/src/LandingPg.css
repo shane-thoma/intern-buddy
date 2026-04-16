@@ -38,9 +38,9 @@ body{
 
 .landingpg-logo-img{
      width:250px;
+     max-width:100%;
      height:240px;
-     overflow:hidden;
-     margin: -50px; /* Might have to fix */
+     display:block;
 }
 
 .trademark{
