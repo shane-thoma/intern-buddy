@@ -1,13 +1,10 @@
--- TODO: FINISH THIS
--- Student-skill-based filter
-SELECT I.posting, I.title, I.city, I.state, I.country, I.salary, I.company
+-- Basic student skill filtering query
+SELECT I.posting, I.title, COUNT(SSk.skill) AS match_count
 FROM Internship AS I
-LEFT JOIN InternshipSkill AS ISk
-ON I.posting = ISk.posting
-LEFT JOIN Skill AS Sk
-ON ISk.skill = Sk.skill
-LEFT JOIN StudentSkill AS SSk
-ON Sk.skill = SSk.skill
-LEFT JOIN Student AS St
-ON SSk.username = St.username
-WHERE St.username = {user};
+JOIN InternshipSkill AS ISk
+ON ISk.posting = I.posting
+JOIN StudentSkill AS SSk
+ON SSk.skill = ISk.skill
+WHERE SSk.username = "alicelopez" -- Hard-coded for now, change when put into Python
+GROUP BY I.posting
+HAVING match_count >= 3;
