@@ -11,20 +11,14 @@ def get_db():
     conn.row_factory = sqlite3.Row
     return conn
 
-""" 
-Bhavana - IMPORTANT: 
-This does not YET actually filter the database based on user input.
-This just receives the student input from React and saves it into a var (into "filters")
-This just returns all students!
-"""
-@app.route("/api/students/filter")
+@app.route("/api/internships/filter")
 def filter_students():
     username = request.args.get('username')
     with sqlite3.connect('intern-buddy.db') as conn:
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute("""
-        SELECT I.posting, I.title, COUNT(SSk.skill) AS match_count
+        SELECT I.posting, I.title, I.city, I.state, I.country, I.salary, I.company, COUNT(SSk.skill) AS match_count
         FROM Internship AS I
         JOIN InternshipSkill AS ISk
         ON ISk.posting = I.posting
@@ -32,8 +26,35 @@ def filter_students():
         ON SSk.skill = ISk.skill
         WHERE SSk.username = ? 
         GROUP BY I.posting
-        HAVING match_count >= 3;""", (username,))
+        HAVING match_count >= 3;
+        """, (username,))
         rows = cursor.fetchall()
+    
+        #convert list of Rows into dictionaries
+        json_rows = []
+        for row in rows:
+            posting = row[0]
+            cursor.execute("SELECT skill FROM InternshipSkill WHERE posting = ? ", (posting,))
+            skills = cursor.fetchall()
+
+            current_skills = []
+            for skill in skills:
+                current_skills.append(skill[0])  
+
+
+            json_row = {
+                "posting": row[0],
+                "title": row[1],
+                "city": row[2],
+                "state": row[3],
+                "country": row[4],
+                "salary": row[5],
+                "company": row[6],
+                "skills" : current_skills
+            }
+            json_rows.append(json_row)
+
+    return jsonify(json_rows)
 
 @app.route("/")
 def home():
