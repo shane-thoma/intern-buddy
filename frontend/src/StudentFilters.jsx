@@ -98,13 +98,10 @@ function StudentFilters({setShowFilter}){
                         </option>
                     ))}
                 </select>
-
-                <button type = "button" onClick = {handleAddSkill}>
-                    Add
-                </button>
-
                 <br></br>
-
+                <button type = "button" className = "add-skill-button" onClick = {handleAddSkill}>
+                    Add Skill
+                </button>
                 <div>
                     {filters.skills.map((skill) => (
                         <span key = {skill} style = {{ marginRight: "10px"}}>
@@ -118,9 +115,7 @@ function StudentFilters({setShowFilter}){
                         </span>
                     ))}
                 </div>
-
-                <br/>
-
+                <br></br>
                 <button type = "submit" className = "student-filters-button">
                     Apply Filters
                 </button>
@@ -132,7 +127,7 @@ function StudentFilters({setShowFilter}){
                 >
                     Close
                 </button>
-
+                <br></br>
                 <br></br>
             </form>
         </div>
