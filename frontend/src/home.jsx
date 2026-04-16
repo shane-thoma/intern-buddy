@@ -13,11 +13,13 @@ function Home(){
     const [isLoading, setIsLoading]= useState(true);
     const [error, setError]= useState(null);
 
+    const username = localStorage.getItem('username')
+
     
     useEffect(() => {
         const loadInternships = async () => {
         try {
-            const result = await getInternships();
+            const result = await getInternships(username);
             setInternships(result);
         } 
         catch (err) {
@@ -32,9 +34,9 @@ function Home(){
         loadInternships();
     }, []);
 
-    async function getInternships()
+    async function getInternships(username)
     {
-        const response = await fetch('http://localhost:5002/api/internships', 
+        const response = await fetch(`http://localhost:5002/api/internships/filter?username=${username}`, 
             {
             method: 'GET'
             }
