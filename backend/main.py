@@ -17,16 +17,23 @@ This does not YET actually filter the database based on user input.
 This just receives the student input from React and saves it into a var (into "filters")
 This just returns all students!
 """
-@app.route("/api/students/filter", methods=["POST"])
+@app.route("/api/students/filter")
 def filter_students():
-    filters = request.json
-    conn = get_db()
-
-    rows = conn.execute("SELECT * FROM Student").fetchall()
-    conn.close()
-
-    return jsonify([dict(row) for row in rows])
-    
+    username = request.args.get('username')
+    with sqlite3.connect('intern-buddy.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("""
+        SELECT I.posting, I.title, COUNT(SSk.skill) AS match_count
+        FROM Internship AS I
+        JOIN InternshipSkill AS ISk
+        ON ISk.posting = I.posting
+        JOIN StudentSkill AS SSk
+        ON SSk.skill = ISk.skill
+        WHERE SSk.username = ? 
+        GROUP BY I.posting
+        HAVING match_count >= 3;""", (username,))
+        rows = cursor.fetchall()
 
 @app.route("/")
 def home():
