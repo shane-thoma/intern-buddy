@@ -117,7 +117,61 @@ def dropdown_skills():
     json_array = {"skills":drop_down_array}
     print(json_array)
     return jsonify(json_array)
+
+
+@app.route("/api/info")
+def get_student_info():
+    username = request.args.get('username')
+    with sqlite3.connect('intern-buddy.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Account WHERE username = ?", (username,))
+        student_info = cursor.fetchone()
+
+        
+        json_list ={
+            "username" : student_info["username"], 
+            "first_name": student_info["first_name"], 
+            "last_name": student_info["last_name"], 
+            "major": student_info["major"],
+            "university": student_info["university"]
+        }
+
+        print(json_list)
+        return jsonify(json_list)
+
+@app.route("/api/update/info", methods=["POST"])
+def update_info():
+    data= request.get_json()
+    username = data.get('username')
+    info = data.get('info', {})
+
+    first_name = info.get("first_name")
+    last_name = info.get("last_name")
+    major = info.get("major")
+    university = info.get("university")
+    if not username or not info:
+        return jsonify({"error": "Missing username or skill"}), 400
     
+    try:
+        with sqlite3.connect('intern-buddy.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE Account
+                SET
+                    first_name = ?,
+                    last_name = ?,
+                    major = ?,
+                    university = ?   
+                WHERE username = ?    
+                """, (first_name, last_name, major, university, username,))
+            conn.commit()
+        return jsonify({"status": "Successfully added"}), 201
+    except sqlite3.IntegrityError:
+        return jsonify({"error": "Invalid record"}), 409
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/")
 def home():
     return jsonify({"message": "Hello from intern-buddy!"})
