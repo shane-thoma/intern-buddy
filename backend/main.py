@@ -105,12 +105,14 @@ def dropdown_skills():
         cursor.execute("""
         SELECT * FROM Skill
         LEFT JOIN StudentSkill
-        ON Skill.skill == StudentSkill.skill AND StudentSkill.username = ?""", (username,))
+        ON Skill.skill == StudentSkill.skill AND StudentSkill.username = ?
+        WHERE StudentSkill.skill IS NULL
+        """, (username,))
     
     rows = cursor.fetchall()
     drop_down_array= []
     for row in rows:
-        drop_down_array.append(row)
+        drop_down_array.append(row[0])
     
     json_array = {"skills":drop_down_array}
     print(json_array)

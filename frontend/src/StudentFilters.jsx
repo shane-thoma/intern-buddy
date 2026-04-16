@@ -7,39 +7,61 @@ function StudentFilters({setShowFilter}){
     const [error, setError]= useState(null);
     const[skill, setSkill] = useState()
 
+    const [skillOptions, setSkillOptions] = useState([]);
+
     const [filters, setFilters] = useState({
         skills : []
     });
 
     const [selectedSkill, setSelectedSkill] = useState("")
 
-    const skillOptions = [
-        "python",
-        "javascript",
-        "C",
-        "Eclipse",
-        "VSCode",
-        "HTML",
-        "CSS",
-        "flask",
-        "react",
-        "ChatGPT",
-        "Docker",
-        "Google Gemini",
-        "Github Co-Pilot",
-        "Microsoft Office Suite",
-        "Pandas",
-        "Node.js",
-        "SQL",
-        "MySQL",
-        "GitHub",
-        "teamwork",
-        "communication",
-        "problem solving",
-        "Microsoft Azure",
-        "AWS Cloud",
-        "java"
-    ];
+    const username = localStorage.getItem('username')
+
+    //     "python",
+    //     "javascript",
+    //     "C",
+    //     "Eclipse",
+    //     "VSCode",
+    //     "HTML",
+    //     "CSS",
+    //     "flask",
+    //     "react",
+    //     "ChatGPT",
+    //     "Docker",
+    //     "Google Gemini",
+    //     "Github Co-Pilot",
+    //     "Microsoft Office Suite",
+    //     "Pandas",
+    //     "Node.js",
+    //     "SQL",
+    //     "MySQL",
+    //     "GitHub",
+    //     "teamwork",
+    //     "communication",
+    //     "problem solving",
+    //     "Microsoft Azure",
+    //     "AWS Cloud",
+    //     "java"
+    // ];
+
+    useEffect(() => {
+        const updateDropdown = async () => {
+            try {
+                setIsLoading(true);
+                const skillsResponse = await fetch(`http://127.0.0.1:5002/api/dropdown?username=${username}`);
+                if (!skillsResponse.ok) throw new Error("Failed to fetch skills");
+                
+                const skillsJson = await skillsResponse.json();
+                setSkillOptions(skillsJson.skills || []);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        updateDropdown();
+    }, [username]); // Only re-run if username changes
 
     const handleAddSkill = () => {
         if (selectedSkill && !filters.skills.includes(selectedSkill)){
