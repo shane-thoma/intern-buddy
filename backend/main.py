@@ -57,7 +57,7 @@ def filter_students():
     return jsonify(json_rows)
 
 
-@app.route("/api/insert/skills",  methods=["POST"])
+@app.route("/api/skills/insert",  methods=["POST"])
 def insert_skills():
     username = request.args.get('username')
     skill = request.args.get('skill')
@@ -76,7 +76,7 @@ def insert_skills():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/api/delete/skills",  methods=["POST"])
+@app.route("/api/skills/delete",  methods=["DELETE"])
 def delete_skills():
     username = request.args.get('username')
     skill = request.args.get('skill')

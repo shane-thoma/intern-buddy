@@ -70,6 +70,11 @@ function StudentFilters({setShowFilter}){
                 skills: [...prev.skills, selectedSkill]
             }));
         }
+        fetch(`http://127.0.0.1:5002/api/skills/insert?username=${username}&skill=${selectedSkill}`,
+            {
+                method: 'POST'
+            }
+        )
     };
 
     const handleRemoveSkill = (skillToRemove) => {
@@ -77,6 +82,11 @@ function StudentFilters({setShowFilter}){
             ...prev,
             skills: prev.skills.filter(skill => skill!== skillToRemove)
         }));
+        fetch(`http://127.0.0.1:5002/api/skills/delete?username=${username}&skill=${skillToRemove}`,
+            {
+                method: 'DELETE'
+            }
+        )
     };
 
     const handleChange = (e) => {
