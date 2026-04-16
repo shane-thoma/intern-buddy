@@ -1,8 +1,12 @@
 import './StudentFilters.css';
-import {useState} from "react";
+import React, { useState, useEffect }  from "react";
 
 function StudentFilters({setShowFilter}){
     
+    const [isLoading, setIsLoading]= useState(true);
+    const [error, setError]= useState(null);
+    const[skill, setSkill] = useState()
+
     const [filters, setFilters] = useState({
         skills : []
     });
@@ -63,15 +67,18 @@ function StudentFilters({setShowFilter}){
     const handleSubmit = async(e) =>{
         e.preventDefault();
 
-        const res = await fetch("http://127.0.0.1:5000/api/students/filter",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(filters)
+        const response = await fetch(`http://127.0.0.1:5000/api/students/filter?username=${username}`,{
+            method: "GET",
+            
         });
 
-        const data = await res.json();
+        if(!response.ok)
+        {
+             const errorData = await response.json();
+            throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
         console.log("Filtered results:", data);
     };
 
