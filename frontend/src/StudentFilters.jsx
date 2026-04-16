@@ -63,18 +63,22 @@ function StudentFilters({setShowFilter}){
         updateDropdown();
     }, [username]); // Only re-run if username changes
 
-    const handleAddSkill = () => {
-        if (selectedSkill && !filters.skills.includes(selectedSkill)){
+    const handleAddSkill = async() => {
+        
+        const response = await fetch(`http://127.0.0.1:5002/api/skills/insert?username=${username}&skill=${selectedSkill}`,
+            {
+                method: 'POST'
+            }
+        )
+
+        if(response.ok)
+        {
             setFilters((prev) => ({
                 ...prev,
                 skills: [...prev.skills, selectedSkill]
             }));
         }
-        fetch(`http://127.0.0.1:5002/api/skills/insert?username=${username}&skill=${selectedSkill}`,
-            {
-                method: 'POST'
-            }
-        )
+        
     };
 
     const handleRemoveSkill = (skillToRemove) => {
@@ -99,19 +103,25 @@ function StudentFilters({setShowFilter}){
     const handleSubmit = async(e) =>{
         e.preventDefault();
 
-        const response = await fetch(`http://127.0.0.1:5000/api/students/filter?username=${username}`,{
-            method: "GET",
-            
-        });
+        try{
 
-        if(!response.ok)
-        {
-             const errorData = await response.json();
-            throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+            const response = await fetch(`http://127.0.0.1:5002/api/internships/filter?username=${username}`);
+
+            if(!response.ok)
+            {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            console.log("Filtered results:", data);
         }
 
-        const data = await response.json();
-        console.log("Filtered results:", data);
+        catch (err) {
+            console.error("Filter failed:", err.message);
+        }
+
+
     };
 
     return(

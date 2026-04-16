@@ -74,7 +74,7 @@ function Home(){
             )}
 
             <div className = "home-container">
-                <section className="internship-section">
+                <div className="internship-section">
                     <div className="internship-section-header">Internships</div>
                     <div className="internship-box">
                     {internships.map((internship, index) =>(
@@ -88,34 +88,33 @@ function Home(){
                     ))}
                     </div>
 
-                </section>
-            </div>
-            <section className="internship-position-info-section">
-                <div className="internship-position-info-box">
-                    {isLoading ? (
-                    <p>Loading...</p>
-                    ) : currentInternship ? (
-                        <>
-                            <div className="position-info">Title: {currentInternship.title}</div>
-                            <div className="position-info">Company: {currentInternship.company}</div>
-                            <div className="position-info">Location: {currentInternship.city}{", "}{currentInternship.state}</div>
-                            <div className="position-info">Salary: ${currentInternship.salary}</div>
-                            <div className="position-info"> Skills: 
-                                <ul className="position-skills-list">
-                                    {(currentInternship.skills || []).map((skill, index) => (
-                                        <li key={index}>{skill}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </>
-                    ) : (
-                        <p>No internship selected</p>
-                     )}
                 </div>
 
-
-            </section>
-
+                <div className="internship-position-info-section">
+                    <div className="internship-position-info-box">
+                        {isLoading ? (
+                        <p>Loading...</p>
+                        ) : currentInternship ? (
+                            <>
+                                <div className="position-info">Title: {currentInternship.title}</div>
+                                <div className="position-info">Company: {currentInternship.company}</div>
+                                <div className="position-info">Location: {currentInternship.city}{", "}{currentInternship.state}</div>
+                                <div className="position-info">Salary: ${currentInternship.salary}</div>
+                                <div className="position-info"> Skills: 
+                                    <ul className="position-skills-list">
+                                        {(currentInternship.skills || []).map((skill, index) => (
+                                         <li key={index}>{skill}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </>
+                        ) : (
+                            <p>No internship selected</p>
+                        )}
+                    </div>
+                </div>
+            </div>
+            
              <div className="bottom-nav">
                     <Link to="/Login" className="bottom-nav-items">Logout</Link>
                     <Link to="/Home" className="bottom-nav-items">Home</Link>
