@@ -1,0 +1,167 @@
+*{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+body{
+    margin:0;
+    padding-top:70px;
+}
+
+header{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.filter-button{
+    background-color:rgb(150, 212, 239);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top:80px;
+    margin-left:15px;
+
+    
+    cursor: pointer;
+
+    border-radius: 8px;
+    border: none;
+
+    width: 90px;
+    height: 50px;
+
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    z-index: 10;
+}
+
+.bottom-nav{
+    position: fixed;
+    border-radius: 15px;
+    background: rgb(194, 233, 250);
+    overflow: hidden;
+    left:0;
+    
+    bottom:10px;
+    width: 100%;
+    display:flex;
+    box-sizing: border-box;
+}
+
+.bottom-nav-items{
+    background: white;
+    padding: 2px 2px;
+    margin: 2px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: grey;
+}
+
+.home-header{
+    position: absolute;
+    top:0;
+    left:0;
+    padding:10px 20px;
+} 
+
+.home-logo-img{
+    width: 120px;
+    height:auto;
+}
+
+.home-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+.internship-section {
+    flex: 0 0 40%;
+    padding: 20px;
+    margin: 0;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+}
+
+.internship-section-header {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 0;
+    color: rgb(108, 174, 231);
+}
+
+.internship-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.internship-option {
+    background-color: white;
+    border: 2px solid rgb(108, 174, 231);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, cursor 0.2s ease;
+    cursor: pointer;
+}
+
+.internship-option:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.job-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(108, 174, 231);
+    margin: 0 0 8px 0;
+}
+
+.job-company {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.internship-position-info-section {
+    flex: 1 1 50%;
+    padding: 20px;
+    margin: 0;
+}
+
+.internship-position-info-box {
+    background-color: white;
+    border: 2px solid rgb(108, 174, 231);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.position-info {
+    margin: 15px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.position-skills-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.position-skills-list li {
+    background-color: rgb(150, 212, 239);
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+}
