@@ -23,9 +23,9 @@ function UpdateInfo(){
                     <input type="text"></input>
                 </label>
                 <br></br>
-                <label className = "update-info-label">YOE:
+                {/* <label className = "update-info-label">YOE:
                     <input type="text"></input>
-                </label>
+                </label> */}
                 <br></br>
                 <button className="update-info-button">Confirm Update</button>
                 <br></br>
