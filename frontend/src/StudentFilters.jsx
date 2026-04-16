@@ -52,19 +52,29 @@ function StudentFilters({setShowFilter}){
                     />
                 </label>
                 <br></br>
-
-                {/* NEED TO UPDATE THESE FIELDS TO SAVE USER INPUT LIKE ABOVE */}
                 
-                <label className = "student-filters-label">Programming Language:
-                    <input type="text"></input>
+                <label>Programming Language:
+                    <input  
+                        name = "lanuguages"
+                        value={filters.languages}
+                        onChange={handleChange} // Saving 
+                    />
                 </label>
                 <br></br>
-                <label className = "student-filters-label">IDE:
-                    <input type="text"></input>
+                <label>IDE:
+                    <input  
+                        name = "ide"
+                        value={filters.ide}
+                        onChange={handleChange} // Saving 
+                    />
                 </label>
                 <br></br>
-                <label className = "student-filters-label">Non Technical Tools:
-                    <input type="text"></input>
+                <label>Non Technical Tools:
+                    <input  
+                        name = "tools"
+                        value={filters.tools}
+                        onChange={handleChange} // Saving 
+                    />
                 </label>
                 <br></br>
                 <button className="student-filters-button">Apply Filters</button>
