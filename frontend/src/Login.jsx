@@ -20,7 +20,7 @@ function Login() {
 
     return (
         <div className="login-form-container">
-            <form className="lsgin-form">
+            <form className="login-form">
                 <h1 className="login-title"> Login </h1>
                 <label className="login-form-label">Username:
                     <input
