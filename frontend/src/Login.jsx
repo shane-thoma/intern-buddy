@@ -16,8 +16,6 @@ function Login() {
         localStorage.setItem('username', username)
     }
 
-    
-
     return (
         <div className="login-form-container">
             <form className="login-form">
