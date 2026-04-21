@@ -8,7 +8,7 @@ function Profile() {
 
     const [updateInfo, setUpdateInfo] = useState(false);
 
-
+    /* Retrieves username from browser */
     const username = localStorage.getItem('username')
     
     const [isLoading, setIsLoading]= useState(true);
