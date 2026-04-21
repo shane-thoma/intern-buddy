@@ -75,6 +75,9 @@ function Profile() {
                         <button className="popup-content-close" onClick={() => setUpdateInfo(false)}>Close</button>
                     </div>
                 )}
+
+                {/* ADD DELETE BUTTON ONCLICK FUNCTIONALITY*/}
+                <button className="delete-account-button">Delete Account</button>
             </div>
 
             <div className="saved-internship-container">

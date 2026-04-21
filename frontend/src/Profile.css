@@ -45,6 +45,18 @@ body {
     cursor: pointer;
 }
 
+.delete-account-button button {
+    padding: 8px 14px;
+    cursor: pointer;
+}
+
+.delete-account-button{
+    margin-top: 15px;
+    text-align: center;
+    color:rgb(207, 8, 8);
+    background-color: rgb(250, 212, 212);
+}
+
 .profile-container{
     display:flex;
     flex-direction: column;
