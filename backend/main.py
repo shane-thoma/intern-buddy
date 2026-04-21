@@ -11,6 +11,7 @@ def get_db():
     conn.row_factory = sqlite3.Row
     return conn
 
+# THIS IS OUR MAIN QUERY TO TALK ABOUT
 @app.route("/api/internships/filter")
 def filter_students():
     username = request.args.get('username')
@@ -18,7 +19,7 @@ def filter_students():
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute("""
-        SELECT I.posting, I.title, I.city, I.state, I.country, I.salary, I.company, COUNT(SSk.skill) AS match_count
+        SELECT I.posting, I.title, I.city, I.state, I.country, I.salary, I.company, COUNT(SSk.skill) AS match_count, COUNT(I.title), MAX(I.salary), MIN(I.salary)
         FROM Internship AS I
         JOIN InternshipSkill AS ISk
         ON ISk.posting = I.posting
@@ -50,11 +51,22 @@ def filter_students():
                 "country": row[4],
                 "salary": row[5],
                 "company": row[6],
-                "skills" : current_skills
+                "skills" : current_skills,
             }
             json_rows.append(json_row)
 
-    return jsonify(json_rows)
+        aggregates = {
+            "matches": rows[0][8], #TODO: FIX THIS, MORE THAN SHOULD BE!!!
+            "max": rows[0][9],
+            "min": rows[0][10]
+        }
+
+    result = {
+        "internships": json_rows,
+        "aggregates": aggregates
+    }
+
+    return jsonify(result)
 
 
 @app.route("/api/skills/insert",  methods=["POST"])

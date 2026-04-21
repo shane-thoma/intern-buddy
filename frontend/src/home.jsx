@@ -20,7 +20,8 @@ function Home(){
         const loadInternships = async () => {
         try {
             const result = await getInternships(username);
-            setInternships(result);
+            setInternships(result.internships);
+            console.log("aggregates: ", result.aggregates)
         } 
         catch (err) {
             console.error(err);
