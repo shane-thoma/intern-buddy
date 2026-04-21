@@ -240,9 +240,27 @@ def display_profile():
             }
             return jsonify(user_json)
         
+@app.route("/api/deleteuser", methods=["DELETE"])
+def delete_user():
+    username = request.args.get('username')
 
+    try:
+        with sqlite3.connect('intern-buddy.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM StudentSkill WHERE username = ?", (username,))
 
+            cursor.execute("DELETE FROM Account WHERE username = ?", (username,))
 
+            cursor.execute("DELETE FROM Student WHERE username = ?", (username,))
+
+            conn.commit()
+
+            return jsonify({"status": "User successfully deleted"}), 200
+        
+    except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+        
 if __name__ == "__main__":
     app.run(debug=True, port = 5002)
 
