@@ -54,12 +54,21 @@ def filter_students():
                 "skills" : current_skills,
             }
             json_rows.append(json_row)
-
-        aggregates = {
-            "matches": rows[0][8], #TODO: FIX THIS, MORE THAN SHOULD BE!!!
-            "max": rows[0][9],
-            "min": rows[0][10]
-        }
+        
+        
+        if rows:
+            aggregates = {
+                "matches": rows[0][8],
+                "max": rows[0][9],
+                "min": rows[0][10]
+            }
+        else:
+            # Return defaults if no internships match the filter
+            aggregates = {
+                "matches": 0,
+                "max": 0,
+                "min": 0
+            }
 
     result = {
         "internships": json_rows,
