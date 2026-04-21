@@ -102,7 +102,6 @@ function Profile() {
                     </div>
                 )}
 
-                {/* ADD DELETE BUTTON ONCLICK FUNCTIONALITY*/}
                 <button className="delete-account-button" onClick = {handleDeleteAccount}>Delete Account</button>
             </div>
 
