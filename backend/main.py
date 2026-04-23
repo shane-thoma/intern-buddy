@@ -272,17 +272,22 @@ def create_account():
     gpa = data.get("gpa")
     skills = data.get("skillsToAdd")
 
+    #Transaction in create account
     try:
         with sqlite3.connect('intern-buddy.db') as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
+            cursor.execute("BEGIN Transaction")
+            
             cursor.execute("INSERT INTO Account (username, first_name, last_name, major, university) VALUES (?, ?, ?, ?, ?)", (username, firstName, lastName, major, university))
 
             cursor.execute("INSERT INTO Student (username, gpa) VALUES (?,?)", (username, gpa))
 
             for skill in skills:
                 cursor.execute("INSERT INTO StudentSkill (username, skill) VALUES (?,?)", (username, skill))
-
+            
+            cursor.execute("COMMIT Transaction")
+            
             conn.commit()
             return jsonify({"status": "Successfully added"}), 201
     except sqlite3.IntegrityError:
@@ -295,14 +300,21 @@ def create_account():
 def delete_user():
     username = request.args.get('username')
 
+    #Transaction in delete account
     try:
         with sqlite3.connect('intern-buddy.db') as conn:
             cursor = conn.cursor()
+
+            cursor.execute("BEGIN Transaction")
+
             cursor.execute("DELETE FROM StudentSkill WHERE username = ?", (username,))
 
             cursor.execute("DELETE FROM Account WHERE username = ?", (username,))
 
             cursor.execute("DELETE FROM Student WHERE username = ?", (username,))
+
+            cursor.execute("COMMIT Transaction")
+
 
             conn.commit()
 

@@ -91,7 +91,7 @@ function Home() {
                         {internships.map((internship, index) => (
                             <button
                                 key={index}
-                                onClick={() => setSelectedInternship(index)}
+                                onClick={() => {setSelectedInternship(index); getAlumni();}}
                             >
                                 <p className="job-title">{internship.title}</p>
                                 <p className="job-company">{internship.company}</p>
@@ -121,6 +121,11 @@ function Home() {
                                         {(currentInternship.skills || []).map((skill, index) => (
                                             <li key={index}>{skill}</li>
                                         ))}
+                                    </ul>
+                                </div>
+                                <div className = "position-info">Alumni:
+                                    <ul className = "position-alumni-list">
+                                        
                                     </ul>
                                 </div>
                             </>
