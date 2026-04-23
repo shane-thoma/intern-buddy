@@ -54,12 +54,21 @@ def filter_students():
                 "skills" : current_skills,
             }
             json_rows.append(json_row)
-
-        aggregates = {
-            "matches": rows[0][8], #TODO: FIX THIS, MORE THAN SHOULD BE!!!
-            "max": rows[0][9],
-            "min": rows[0][10]
-        }
+        
+        
+        if rows:
+            aggregates = {
+                "matches": rows[0][8],
+                "max": rows[0][9],
+                "min": rows[0][10]
+            }
+        else:
+            # Return defaults if no internships match the filter
+            aggregates = {
+                "matches": 0,
+                "max": 0,
+                "min": 0
+            }
 
     result = {
         "internships": json_rows,
@@ -251,6 +260,36 @@ def display_profile():
                 "university": user[4]
             }
             return jsonify(user_json)
+
+@app.route("/api/account", methods = ["POST"])    
+def create_account():
+    data = request.get_json()
+    username = data.get("username")
+    firstName = data.get("firstName")
+    lastName = data.get("lastName")
+    major = data.get("major")
+    university = data.get("university")
+    gpa = data.get("gpa")
+    skills = data.get("skillsToAdd")
+
+    try:
+        with sqlite3.connect('intern-buddy.db') as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO Account (username, first_name, last_name, major, university) VALUES (?, ?, ?, ?, ?)", (username, firstName, lastName, major, university))
+
+            cursor.execute("INSERT INTO Student (username, gpa) VALUES (?,?)", (username, gpa))
+
+            for skill in skills:
+                cursor.execute("INSERT INTO StudentSkill (username, skill) VALUES (?,?)", (username, skill))
+
+            conn.commit()
+            return jsonify({"status": "Successfully added"}), 201
+    except sqlite3.IntegrityError:
+        return jsonify({"error": "Invalid record"}), 409
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
         
 @app.route("/api/deleteuser", methods=["DELETE"])
 def delete_user():
