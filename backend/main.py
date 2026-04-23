@@ -319,6 +319,7 @@ def add_alumni():
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         cursor.execute("""
+        SELECT 
         
         """, (alum_username,))
         rows = cursor.fetchall() # Retrieve rows with alumni matched to student's internships.

@@ -53,11 +53,6 @@ function SignUp()
                 const errorData = await response.json();
                 throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
             }
-
-
-
-
-             
         }
         catch(err)
         {
