@@ -91,8 +91,6 @@ function StudentFilters({ setShowFilter }) {
         catch (err) {
             console.error("Filter failed:", err.message);
         }
-
-
     };
 
     return (
