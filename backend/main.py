@@ -311,6 +311,19 @@ def delete_user():
     except Exception as e:
             return jsonify({"error": str(e)}), 500
 
+@app.route("/api/internships/alumni")
+def add_alumni():
+
+    alum_username = request.args.get('username')
+    with sqlite3.connect('intern-buddy.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("""
+        
+        """, (alum_username,))
+        rows = cursor.fetchall() # Retrieve rows with alumni matched to student's internships.
+
+
         
 if __name__ == "__main__":
     app.run(debug=True, port = 5002)
