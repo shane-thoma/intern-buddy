@@ -336,9 +336,11 @@ def add_alumni():
             SELECT University FROM Account 
             WHERE username = ?
             """, (username,))
-
+            
             university_row = cursor.fetchone() # Retrieve rows with alumni matched to student's internships.
-
+            
+            if university_row is None:
+                return jsonify({"error": "User not found"}), 404
 
             university = university_row["university"]
             cursor.execute("""
