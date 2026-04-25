@@ -21,6 +21,19 @@ function Home() {
         min: 0
     });
 
+    const [alumni, setAlumni] = useState([]);
+
+    useEffect(() => {
+    
+    const current = internships[selectedInternship];
+    
+   
+    if (current && current.company) {
+        getAlumni(current.company, username);
+    }
+
+
+    }, [selectedInternship, internships, username]); 
 
     useEffect(() => {
         const loadInternships = async () => {
@@ -42,6 +55,8 @@ function Home() {
         loadInternships();
     }, []);
 
+   
+
     async function getInternships(username) {
         const response = await fetch(`http://localhost:5002/api/internships/filter?username=${username}`,
             {
@@ -58,6 +73,24 @@ function Home() {
 
         console.log(result)
         return result;
+    }
+
+    async function getAlumni(company, username) {
+
+        const response = await fetch (`http://localhost:5002/api/internships/alumni?company=${company}&username=${username}`,
+        {
+            method: 'GET'
+        }
+        );
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log(result)
+        setAlumni(result);
     }
 
     const currentInternship = internships[selectedInternship]
@@ -84,7 +117,7 @@ function Home() {
                         {internships.map((internship, index) => (
                             <button
                                 key={index}
-                                onClick={() => {setSelectedInternship(index); getAlumni();}}
+                                onClick={() => setSelectedInternship(index)}
                             >
                                 <p className="job-title">{internship.title}</p>
                                 <p className="job-company">{internship.company}</p>
@@ -118,7 +151,9 @@ function Home() {
                                 </div>
                                 <div className = "position-info">Alumni:
                                     <ul className = "position-alumni-list">
-                                        
+                                        {(alumni || []).map((name, index) => (
+                                            <li key = {index}>{name}</li>
+                                        ))}
                                     </ul>
                                 </div>
                             </>

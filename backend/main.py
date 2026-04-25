@@ -326,17 +326,41 @@ def delete_user():
 @app.route("/api/internships/alumni")
 def add_alumni():
 
-    alum_username = request.args.get('username')
-    with sqlite3.connect('intern-buddy.db') as conn:
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        cursor.execute("""
-        SELECT 
+    company = request.args.get('company')
+    username = request.args.get('username')
+    try:
+        with sqlite3.connect('intern-buddy.db') as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("""
+            SELECT University FROM Account 
+            WHERE username = ?
+            """, (username,))
+            
+            university_row = cursor.fetchone() 
+            
+
+            university = university_row["university"]
+            cursor.execute("""
+            SELECT Al.username FROM Alum as Al
+            JOIN Account AS Acc
+            ON Al.username == Acc.username
+            WHERE company = ? AND Acc.university = ?
+            """, (company, university,))
+
+            rows = cursor.fetchall()
+
+            alums = []
+
+            for row in rows:
+                alums.append(row["username"])
+            return jsonify(alums)
         
-        """, (alum_username,))
-        rows = cursor.fetchall() # Retrieve rows with alumni matched to student's internships.
 
-
+    except sqlite3.IntegrityError:
+        return jsonify({"error": "Invalid record"}), 409
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
         
 if __name__ == "__main__":
     app.run(debug=True, port = 5002)

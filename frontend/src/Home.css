@@ -166,6 +166,23 @@ header{
     font-size: 14px;
 }
 
+.position-alumni-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.position-alumni-list li {
+    background-color: rgb(150, 212, 239);
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+}
+
+
 .aggregates-box {
     color: rgb(108, 174, 231);
 }
