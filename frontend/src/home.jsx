@@ -60,13 +60,6 @@ function Home() {
         return result;
     }
 
-    async function getAlumni(company) {
-        const response = await fetch (`http://localhost:5002/api/internships/alumni`)
-        {
-            method: 'GET';
-        }
-    }
-
     const currentInternship = internships[selectedInternship]
 
     return (
