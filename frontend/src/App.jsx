@@ -11,8 +11,6 @@ import SignUp from "./SignUp";
 import LandingPg from "./LandingPg";
 
 function App() {
-  
-
   return (
    <div className = "app-main">
       <Routes>
@@ -21,11 +19,8 @@ function App() {
         <Route path="/Profile" element={<Profile />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/SignUp" element={<SignUp />}></Route>
-        
       </Routes>
-
    </div>
   )
 }
-
 export default App
