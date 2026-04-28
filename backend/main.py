@@ -315,7 +315,6 @@ def delete_user():
 
             cursor.execute("COMMIT Transaction")
 
-
             conn.commit()
 
             return jsonify({"status": "User successfully deleted"}), 200
