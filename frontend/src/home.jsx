@@ -34,25 +34,49 @@ function Home() {
 
     }, [selectedInternship, internships, username]);
 
-    useEffect(() => {
-        const loadInternships = async () => {
-            try {
-                const result = await getInternships(username);
-                setInternships(result.internships);
-                setAggregates(result.aggregates);
-                console.log("aggregates: ", result.aggregates)
-            }
-            catch (err) {
+    async function loadInternships(){
+        try{
+            setIsLoading(true);
+            const result = await getInternships(username);
+            setInternships(result.internships);
+            setAggregates(result.aggregates);
+        }
+        catch (err) 
+        {
                 console.error(err);
                 setError(err.message);
-            }
-            finally {
+        }
+        finally 
+        {
                 setIsLoading(false);
-            }
-        };
+        }
+    }
 
+    useEffect(() => {
         loadInternships();
     }, []);
+
+
+
+    // useEffect(() => {
+    //     const loadInternships = async () => {
+    //         try {
+    //             const result = await getInternships(username);
+    //             setInternships(result.internships);
+    //             setAggregates(result.aggregates);
+    //             console.log("aggregates: ", result.aggregates)
+    //         }
+    //         catch (err) {
+    //             console.error(err);
+    //             setError(err.message);
+    //         }
+    //         finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
+
+    //     loadInternships();
+    // }, []);
 
 
 
@@ -103,7 +127,10 @@ function Home() {
             {showFilter && (
                 <div className="popup-student-filters">
                     <div className="popup-content">
-                        <StudentFilters />
+                        <StudentFilters 
+                            setShowFilter = {setShowFilter}
+                            loadInternships = {loadInternships}
+                        />
                     </div>
 
                 </div>

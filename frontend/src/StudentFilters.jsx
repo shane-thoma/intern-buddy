@@ -1,7 +1,7 @@
 import './StudentFilters.css';
 import React, { useState, useEffect } from "react";
 
-function StudentFilters({ setShowFilter }) {
+function StudentFilters({ setShowFilter, loadInternships }) {
 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -86,6 +86,9 @@ function StudentFilters({ setShowFilter }) {
 
             const data = await response.json();
             console.log("Filtered results:", data);
+
+            await loadInternships();
+            setShowFilter(false);
         }
 
         catch (err) {
