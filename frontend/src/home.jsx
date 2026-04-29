@@ -23,16 +23,16 @@ function Home() {
     const [alumni, setAlumni] = useState([]);
 
     useEffect(() => {
-    
-    const current = internships[selectedInternship];
-    
-   
-    if (current && current.company) {
-        getAlumni(current.company, username);
-    }
+
+        const current = internships[selectedInternship];
 
 
-    }, [selectedInternship, internships, username]); 
+        if (current && current.company) {
+            getAlumni(current.company, username);
+        }
+
+
+    }, [selectedInternship, internships, username]);
 
     useEffect(() => {
         const loadInternships = async () => {
@@ -54,7 +54,7 @@ function Home() {
         loadInternships();
     }, []);
 
-   
+
 
     async function getInternships(username) {
         const response = await fetch(`http://localhost:5002/api/internships/filter?username=${username}`,
@@ -76,10 +76,10 @@ function Home() {
 
     async function getAlumni(company, username) {
 
-        const response = await fetch (`http://localhost:5002/api/internships/alumni?company=${company}&username=${username}`,
-        {
-            method: 'GET'
-        }
+        const response = await fetch(`http://localhost:5002/api/internships/alumni?company=${company}&username=${username}`,
+            {
+                method: 'GET'
+            }
         );
 
         if (!response.ok) {
@@ -148,10 +148,10 @@ function Home() {
                                         ))}
                                     </ul>
                                 </div>
-                                <div className = "position-info">Alumni:
-                                    <ul className = "position-alumni-list">
+                                <div className="position-info">Alumni:
+                                    <ul className="position-alumni-list">
                                         {(alumni || []).map((name, index) => (
-                                            <li key = {index}>{name}</li>
+                                            <li key={index}>{name}</li>
                                         ))}
                                     </ul>
                                 </div>

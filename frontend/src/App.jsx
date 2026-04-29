@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import {Routes, Route, Navigate} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./home";
 import Profile from "./Profile";
 import Login from "./Login";
@@ -12,7 +12,7 @@ import LandingPg from "./LandingPg";
 
 function App() {
   return (
-   <div className = "app-main">
+    <div className="app-main">
       <Routes>
         <Route path="/" element={<LandingPg />}></Route>
         <Route path="/Home" element={<Home />}></Route>
@@ -20,7 +20,7 @@ function App() {
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/SignUp" element={<SignUp />}></Route>
       </Routes>
-   </div>
+    </div>
   )
 }
 export default App
