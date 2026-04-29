@@ -12,6 +12,7 @@ def get_db():
     return conn
 
 # THIS IS OUR MAIN QUERY TO TALK ABOUT
+# READ OPERATION
 @app.route("/api/internships/filter")
 def filter_students():
     username = request.args.get('username')
@@ -55,7 +56,7 @@ def filter_students():
             }
             json_rows.append(json_row)
         
-        
+        # READ OPERATION
         if rows:
             aggregates = {
                 "matches": rows[0][8],
@@ -139,7 +140,7 @@ def dropdown_skills():
     print(json_array)
     return jsonify(json_array)
 
-
+# READ OPERATION
 @app.route("/api/info")
 def get_student_info():
     username = request.args.get('username')
@@ -149,7 +150,6 @@ def get_student_info():
         cursor.execute("SELECT * FROM Account WHERE username = ?", (username,))
         student_info = cursor.fetchone()
 
-        
         json_list ={
             "username" : student_info["username"], 
             "first_name": student_info["first_name"], 
@@ -161,6 +161,7 @@ def get_student_info():
         print(json_list)
         return jsonify(json_list)
 
+# UPDATE OPERATION
 @app.route("/api/update/info", methods=["POST"])
 def update_info():
     data= request.get_json()
@@ -261,6 +262,7 @@ def display_profile():
             }
             return jsonify(user_json)
 
+# CREATE OPERATION
 @app.route("/api/account", methods = ["POST"])    
 def create_account():
     data = request.get_json()
@@ -272,7 +274,7 @@ def create_account():
     gpa = data.get("gpa")
     skills = data.get("skillsToAdd")
 
-    #Transaction in create account
+    # Transaction in create account
     try:
         with sqlite3.connect('intern-buddy.db') as conn:
             conn.row_factory = sqlite3.Row
@@ -295,12 +297,12 @@ def create_account():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-        
+# DELETE OPERATION
 @app.route("/api/deleteuser", methods=["DELETE"])
 def delete_user():
     username = request.args.get('username')
 
-    #Transaction in delete account
+    # Transaction in delete account
     try:
         with sqlite3.connect('intern-buddy.db') as conn:
             cursor = conn.cursor()
