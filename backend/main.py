@@ -97,7 +97,6 @@ def filter_agg():
 
     return jsonify(result)
 
-
 @app.route("/api/skills/insert",  methods=["POST"])
 def insert_skills():
     username = request.args.get('username')
