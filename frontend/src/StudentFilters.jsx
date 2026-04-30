@@ -17,6 +17,23 @@ function StudentFilters({ setShowFilter, loadInternships }) {
 
     const username = localStorage.getItem('username')
 
+    const loadSkills = async () => {
+        const response = await fetch(`http://127.0.0.1:5002/api/skills?username=${username}`);
+        if (!response.ok) throw new Error("Failed to fetch skills");
+
+        const skillsJson = await response.json();
+        console.log(skillsJson)
+
+        setFilters((prev) => ({
+            ...prev,
+            skills: [...prev.skills, ...skillsJson.skills]
+        }));
+    };
+
+    useEffect(() =>{
+        loadSkills();
+    }, []); // Only run once
+
     useEffect(() => {
         const updateDropdown = async () => {
             try {

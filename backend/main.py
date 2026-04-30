@@ -97,6 +97,28 @@ def filter_agg():
 
     return jsonify(result)
 
+# READ OPERATION
+@app.route("/api/skills")
+def get_skills():
+    username = request.args.get('username')
+    with sqlite3.connect('intern-buddy.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("""
+        SELECT skill
+        FROM StudentSkill
+        WHERE username = ?;
+        """, (username,))
+        rows = cursor.fetchall()
+    
+        #convert list of Rows into dictionaries
+        skills = [row[0] for row in rows]
+        result = {
+            "skills": skills
+        }
+
+    return jsonify(result)
+
 @app.route("/api/skills/insert",  methods=["POST"])
 def insert_skills():
     username = request.args.get('username')
