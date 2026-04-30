@@ -16,9 +16,10 @@ function Profile() {
     const [error, setError]= useState(null);
     const [userInfo, setUserInfo] = useState([])
 
-    useEffect(() => {
-            const loadProfile = async () => {
-            try {
+
+    async function loadProfile()
+    {
+        try {
                 const result = await getUserInfo(username);
                 setUserInfo(result);
             } 
@@ -29,10 +30,31 @@ function Profile() {
             finally {
                 setIsLoading(false);
             }
-            };
+    };
     
-            loadProfile();
-        }, []);
+
+    useEffect (()=>{
+        loadProfile()
+    }, [])
+
+
+    // useEffect(() => {
+    //         const loadProfile = async () => {
+    //         try {
+    //             const result = await getUserInfo(username);
+    //             setUserInfo(result);
+    //         } 
+    //         catch (err) {
+    //             console.error(err);
+    //             setError(err.message);
+    //         } 
+    //         finally {
+    //             setIsLoading(false);
+    //         }
+    //         };
+    
+    //         loadProfile();
+    //     }, []);
     
     
     async function getUserInfo(username)
@@ -96,7 +118,9 @@ function Profile() {
                 <button className="update-info-button" onClick={() => setUpdateInfo(!updateInfo)}>Update Info</button>
                 {updateInfo && (
                     <div className="popup-content">
-                        <UpdateInfo />
+                        <UpdateInfo
+                        loadProfile = {loadProfile}
+                         />
                         <br></br>
                         <button className="popup-content-close" onClick={() => setUpdateInfo(false)}>Close</button>
                     </div>

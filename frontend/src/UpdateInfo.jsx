@@ -3,7 +3,7 @@ import './Home.css';
 import './Profile.css';
 import { Link } from "react-router-dom";
 
-function UpdateInfo(){
+function UpdateInfo({loadProfile}){
 
     //can get the current info stored in the DB --> useEffect()
     //if anything changes, we call change the current values
@@ -53,6 +53,8 @@ function UpdateInfo(){
             const errorData = await response.json();
             throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
         }
+
+        await loadProfile();
     }
 
     return(
