@@ -55,26 +55,45 @@ def filter_students():
                 "skills" : current_skills,
             }
             json_rows.append(json_row)
+
+    return jsonify(json_rows)
+
+# READ OPERATION
+@app.route("/api/internships/filter_agg")
+def filter_agg():
+    username = request.args.get('username')
+    with sqlite3.connect('intern-buddy.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("""
+        SELECT COUNT(*), MIN(salary), MAX(salary)
+        FROM (
+            SELECT I.posting, I.title, I.city, I.state, I.country, I.salary, I.company, COUNT(SSk.skill) AS match_count
+            FROM Internship AS I
+            JOIN InternshipSkill AS ISk
+            ON ISk.posting = I.posting
+            JOIN StudentSkill AS SSk
+            ON SSk.skill = ISk.skill
+            WHERE SSk.username = ? 
+            GROUP BY I.posting
+            HAVING match_count >= 3
+		);
+        """, (username,))
+        agg = cursor.fetchone()
         
-        # READ OPERATION
-        if rows:
-            aggregates = {
-                "matches": rows[0][8],
-                "max": rows[0][9],
-                "min": rows[0][10]
+        if agg[0] > 0:
+            result = {
+                "matches": agg[0],
+                "max": agg[1],
+                "min": agg[2]
             }
         else:
             # Return defaults if no internships match the filter
-            aggregates = {
+            result = {
                 "matches": 0,
                 "max": 0,
                 "min": 0
             }
-
-    result = {
-        "internships": json_rows,
-        "aggregates": aggregates
-    }
 
     return jsonify(result)
 

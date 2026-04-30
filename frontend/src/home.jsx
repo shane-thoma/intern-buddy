@@ -37,9 +37,10 @@ function Home() {
     async function loadInternships(){
         try{
             setIsLoading(true);
-            const result = await getInternships(username);
-            setInternships(result.internships);
-            setAggregates(result.aggregates);
+            const internships = await getInternships(username);
+            const aggregates = await getAggregates(username);
+            setInternships(internships);
+            setAggregates(aggregates);
         }
         catch (err) 
         {
@@ -82,6 +83,24 @@ function Home() {
 
     async function getInternships(username) {
         const response = await fetch(`http://localhost:5002/api/internships/filter?username=${username}`,
+            {
+                method: 'GET'
+            }
+        );
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Error: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+
+        console.log(result)
+        return result;
+    }
+
+    async function getAggregates(username) {
+        const response = await fetch(`http://localhost:5002/api/internships/filter_agg?username=${username}`,
             {
                 method: 'GET'
             }
